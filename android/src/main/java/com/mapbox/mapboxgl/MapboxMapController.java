@@ -76,7 +76,7 @@ import static com.mapbox.mapboxgl.MapboxMapsPlugin.STOPPED;
 /**
  * Controller of a single MapboxMaps MapView instance.
  */
-final class MapboxMapController
+public final class MapboxMapController
   implements Application.ActivityLifecycleCallbacks,
   MapboxMap.OnCameraIdleListener,
   MapboxMap.OnCameraMoveListener,
@@ -905,5 +905,9 @@ final class MapboxMapController
       }
     }
     return bitmap;
+  }
+
+  public MapboxMap getMapboxMap() {
+    return mapboxMap;
   }
 }

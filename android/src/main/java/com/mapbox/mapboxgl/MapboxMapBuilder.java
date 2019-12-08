@@ -17,7 +17,7 @@ import io.flutter.plugin.common.PluginRegistry;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-class MapboxMapBuilder implements MapboxMapOptionsSink {
+public class MapboxMapBuilder implements MapboxMapOptionsSink {
   public final String TAG = getClass().getSimpleName();
   private final MapboxMapOptions options = new MapboxMapOptions()
     .textureMode(true)
@@ -28,6 +28,8 @@ class MapboxMapBuilder implements MapboxMapOptionsSink {
   private int myLocationRenderMode = 0;
   private String styleString = Style.MAPBOX_STREETS;
 
+  private static MapboxMapController _controller;
+
   MapboxMapController build(
     int id, Context context, AtomicInteger state, PluginRegistry.Registrar registrar) {
     final MapboxMapController controller =
@@ -37,7 +39,12 @@ class MapboxMapBuilder implements MapboxMapOptionsSink {
     controller.setMyLocationTrackingMode(myLocationTrackingMode);
     controller.setMyLocationRenderMode(myLocationRenderMode);
     controller.setTrackCameraPosition(trackCameraPosition);
+    _controller = controller;
     return controller;
+  }
+
+  public static MapboxMapController getController() {
+    return _controller;
   }
 
   public void setInitialCameraPosition(CameraPosition position) {
