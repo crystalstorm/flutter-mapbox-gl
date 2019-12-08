@@ -85,7 +85,7 @@ import java.util.Set;
 
 /** Controller of a single MapboxMaps MapView instance. */
 @SuppressLint("MissingPermission")
-final class MapboxMapController
+public final class MapboxMapController
     implements DefaultLifecycleObserver,
         MapboxMap.OnCameraIdleListener,
         MapboxMap.OnCameraMoveListener,
@@ -1439,6 +1439,10 @@ final class MapboxMapController
     return bitmap;
   }
 
+  public MapboxMap getMapboxMap() {
+    return mapboxMap;
+  }
+  
   /** Simple Listener to listen for the status of camera movements. */
   public class OnCameraMoveFinishedListener implements MapboxMap.CancelableCallback {
     @Override

@@ -12,7 +12,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 import com.mapbox.mapboxsdk.maps.Style;
 import io.flutter.plugin.common.BinaryMessenger;
 
-class MapboxMapBuilder implements MapboxMapOptionsSink {
+public class MapboxMapBuilder implements MapboxMapOptionsSink {
   public final String TAG = getClass().getSimpleName();
   private final MapboxMapOptions options = new MapboxMapOptions().attributionEnabled(true);
   private boolean trackCameraPosition = false;
@@ -22,6 +22,8 @@ class MapboxMapBuilder implements MapboxMapOptionsSink {
   private int myLocationRenderMode = 0;
   private String styleString = Style.MAPBOX_STREETS;
   private LatLngBounds bounds = null;
+
+  private static MapboxMapController _controller;
 
   MapboxMapController build(
       int id,
@@ -45,11 +47,16 @@ class MapboxMapBuilder implements MapboxMapOptionsSink {
     controller.setMyLocationRenderMode(myLocationRenderMode);
     controller.setTrackCameraPosition(trackCameraPosition);
 
+    _controller = controller;
     if (null != bounds) {
       controller.setCameraTargetBounds(bounds);
     }
 
     return controller;
+  }
+
+  public static MapboxMapController getController() {
+    return _controller;
   }
 
   public void setInitialCameraPosition(CameraPosition position) {
